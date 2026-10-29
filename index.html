@@ -11,7 +11,6 @@
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #38bdf8;
-            --accent-hover: #0284c7;
             --border: #334155;
             --badge-work: #0284c7;
             --badge-off: #475569;
@@ -229,18 +228,18 @@
     </header>
 
     <main class="dashboard-container">
-        <!-- Columna lateral: Tiempo y Turnos -->
+        <!-- Barra lateral -->
         <div class="sidebar">
             <section class="card">
                 <h2>Tiempo & Reloj</h2>
                 <div class="time-box">
                     <div class="clock" id="live-clock">--:--:--</div>
-                    <div class="date" id="live-date">Cargando fecha...</div>
+                    <div class="date" id="live-date">Cargando...</div>
                 </div>
                 <div class="weather-box">
-                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;" id="weather-city">Ubicación local</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">L'Hospitalet / BCN</div>
                     <div class="weather-temp" id="weather-temp">-- °C</div>
-                    <div class="weather-desc" id="weather-status">Obteniendo previsión...</div>
+                    <div class="weather-desc" id="weather-status">Consultando...</div>
                 </div>
             </section>
 
@@ -249,22 +248,15 @@
                 <div class="shift-today-box">
                     <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turno de Hoy</div>
                     <div class="shift-badge" id="shift-today-code">--</div>
-                    <div class="shift-name" id="shift-today-name">Consultando cuadrante...</div>
+                    <div class="shift-name" id="shift-today-name">Cargando...</div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">Próximos días:</div>
                 <ul class="upcoming-shifts" id="upcoming-shifts-list">
-                    <li><span>Cargando...</span></li>
+                    <li><span>Cargando previsión...</span></li>
                 </ul>
             </section>
         </div>
 
-        <!-- Columna principal: Mis Enlaces -->
+        <!-- Enlaces principales -->
         <section class="card">
-            <h2>Mis Enlaces</h2>
-            <div class="links-grid">
-                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&from_lat=41.360700975&from_lng=2.10991665&from_code=SP&to_address=Europa+%7C+Fira&to_lat=41.356558916&to_lng=2.124199344&to_code=EU&datetime_option=0&range_option=0&date=18-02-2025&time_from=13%3A09" target="_blank" class="link-card">
-                    <span class="title">Ir al trabajo</span>
-                    <span class="url">FGC: Sant Josep ➔ Europa | Fira</span>
-                </a>
-
-                <a href="
+            <h2>Mis Enlaces
