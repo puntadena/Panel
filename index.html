@@ -59,7 +59,7 @@
 
         @media (min-width: 768px) {
             .top-row {
-                grid-template-columns: 360px 1fr;
+                grid-template-columns: 380px 1fr;
             }
         }
 
@@ -82,7 +82,7 @@
             justify-content: space-between;
         }
 
-        /* Widgets del Tiempo */
+        /* Widgets de Tiempo y Pronóstico */
         .weather-current {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
@@ -127,7 +127,7 @@
         }
 
         .forecast-temp {
-            font-size: 1.05rem;
+            font-size: 1.1rem;
             font-weight: bold;
             margin: 0.25rem 0;
             color: var(--text-main);
@@ -138,7 +138,7 @@
             color: var(--text-muted);
         }
 
-        /* Bloque de Turnos */
+        /* Tarjeta de Turno Laboral */
         .shift-today-box {
             text-align: center;
             background: rgba(56, 189, 248, 0.06);
@@ -150,7 +150,7 @@
 
         .shift-badge {
             display: inline-block;
-            font-size: 2.4rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--accent);
             margin: 0.2rem 0;
@@ -210,4 +210,285 @@
             border-radius: 8px;
             text-decoration: none;
             color: var(--text-main);
-            transition: all 0.2
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .link-card span.title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .link-card span.url {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        /* Contenedor del Cuadrante (iframe de Google Sheets) */
+        .sheet-container {
+            width: 100%;
+            height: 400px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+            margin-top: 1rem;
+        }
+
+        .sheet-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 2.5rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Control</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Acceso personal</p>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Fila Superior: Meteorología & Enlaces -->
+        <div class="top-row">
+            <!-- Tarjeta 1: Tiempo actual y próximos días -->
+            <section class="card">
+                <h2>El Tiempo <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">L'Hospitalet / BCN</span></h2>
+                
+                <div class="weather-current">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Hoy</div>
+                    <div class="weather-temp" id="weather-temp">-- °C</div>
+                    <div class="weather-desc" id="weather-status">Consultando previsión...</div>
+                    <div style="font-size: 0.8rem; color: var(--text-muted); margin-top: 0.3rem;" id="weather-range">-- / --</div>
+                </div>
+
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem;">Previsión siguientes 2 días:</div>
+                <div class="forecast-grid" id="forecast-days">
+                    <div class="forecast-card">
+                        <div class="forecast-day" id="day1-name">Mañana</div>
+                        <div class="forecast-temp" id="day1-temp">-- °C</div>
+                        <div class="forecast-desc" id="day1-desc">Cargando...</div>
+                    </div>
+                    <div class="forecast-card">
+                        <div class="forecast-day" id="day2-name">Pasado</div>
+                        <div class="forecast-temp" id="day2-temp">-- °C</div>
+                        <div class="forecast-desc" id="day2-desc">Cargando...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Tarjeta 2: Mis Enlaces FGC -->
+            <section class="card">
+                <h2>Mis Enlaces</h2>
+                <div class="links-grid">
+                    <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span class="title">Ir al trabajo</span>
+                        <span class="url">FGC: Sant Josep &rarr; Europa | Fira</span>
+                    </a>
+
+                    <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span class="title">Vuelta del trabajo</span>
+                        <span class="url">FGC: Europa | Fira &rarr; Sant Josep</span>
+                    </a>
+
+                    <a href="https://docs.google.com/spreadsheets/d/1q-nUFSkaT7oYEPtIcjB5iDg3tKTLzJaWNR4gUdJLF48/edit" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span class="title">Abrir Cuadrante</span>
+                        <span class="url">Google Sheets en pestaña nueva</span>
+                    </a>
+                </div>
+            </section>
+        </div>
+
+        <!-- Fila Inferior: Horario Laboral y Turnos -->
+        <section class="card">
+            <h2>Horario Laboral <span style="font-size: 0.8rem; color: var(--text-muted); font-weight: normal;">Equipo E11</span></h2>
+            
+            <div class="shift-today-box">
+                <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turno de Hoy</div>
+                <div class="shift-badge" id="shift-today-code">--</div>
+                <div class="shift-name" id="shift-today-name">Consultando cuadrante...</div>
+            </div>
+
+            <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Próximos turnos:</div>
+            <ul class="upcoming-shifts" id="upcoming-shifts-list">
+                <li><span>Cargando previsión...</span></li>
+            </ul>
+
+            <!-- Vista incrustada del cuadrante -->
+            <div class="sheet-container">
+                <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vTYY-tJffbmNT8PC00CMisGJ8W0S4XSb6U0MnjD5BQbNkQE72ZhsxJwfnAObXWkaOLK2j6epc7Efy0D/pubhtml?embedded=true&amp;widget=true&amp;headers=false"></iframe>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Área restringida &middot; Panel de Control
+    </footer>
+
+    <!-- Script de Meteorología (Actual + 2 días de previsión) -->
+    <script>
+        function decodeWeather(code) {
+            if (code === 0) return "Cielo despejado";
+            if (code >= 1 && code <= 3) return "Parcialmente nublado";
+            if (code >= 45 && code <= 48) return "Niebla";
+            if (code >= 51 && code <= 67) return "Lluvia ligera";
+            if (code >= 71 && code <= 77) return "Nieve";
+            if (code >= 80 && code <= 82) return "Chubascos";
+            if (code >= 95) return "Tormenta";
+            return "Nublado";
+        }
+
+        fetch("https://api.open-meteo.com/v1/forecast?latitude=41.3596&longitude=2.0997&current=temperature_2m,weather_code&daily=weather_code,temperature_2m_max,temperature_2m_min&timezone=auto&forecast_days=3")
+            .then(function(res) { return res.json(); })
+            .then(function(data) {
+                // Actual
+                var currentTemp = Math.round(data.current.temperature_2m);
+                var currentCode = data.current.weather_code;
+                document.getElementById('weather-temp').textContent = currentTemp + " °C";
+                document.getElementById('weather-status').textContent = decodeWeather(currentCode);
+
+                if (data.daily) {
+                    var max0 = Math.round(data.daily.temperature_2m_max[0]);
+                    var min0 = Math.round(data.daily.temperature_2m_min[0]);
+                    document.getElementById('weather-range').textContent = "Máx: " + max0 + "° / Mín: " + min0 + "°";
+
+                    // Día 1 (Mañana)
+                    var d1Date = new Date(data.daily.time[1] + "T00:00:00");
+                    var d1Name = d1Date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric' });
+                    document.getElementById('day1-name').textContent = d1Name;
+                    document.getElementById('day1-temp').textContent = Math.round(data.daily.temperature_2m_max[1]) + "° / " + Math.round(data.daily.temperature_2m_min[1]) + "°";
+                    document.getElementById('day1-desc').textContent = decodeWeather(data.daily.weather_code[1]);
+
+                    // Día 2 (Pasado mañana)
+                    var d2Date = new Date(data.daily.time[2] + "T00:00:00");
+                    var d2Name = d2Date.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric' });
+                    document.getElementById('day2-name').textContent = d2Name;
+                    document.getElementById('day2-temp').textContent = Math.round(data.daily.temperature_2m_max[2]) + "° / " + Math.round(data.daily.temperature_2m_min[2]) + "°";
+                    document.getElementById('day2-desc').textContent = decodeWeather(data.daily.weather_code[2]);
+                }
+            })
+            .catch(function() {
+                document.getElementById('weather-status').textContent = "Sin datos meteorológicos";
+            });
+    </script>
+
+    <!-- Script de Turnos con sincronización y fallback garantizado -->
+    <script>
+        (function() {
+            var csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTYY-tJffbmNT8PC00CMisGJ8W0S4XSb6U0MnjD5BQbNkQE72ZhsxJwfnAObXWkaOLK2j6epc7Efy0D/pub?output=csv';
+            
+            var shiftNames = {
+                'M': 'Mañana',
+                'T': 'Tarde',
+                'Nn': 'Noche',
+                'Nnw': 'Noche Fin de Semana'
+            };
+
+            function pad(n) { return (n < 10 ? '0' : '') + n; }
+            function toDateStr(d) {
+                return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear();
+            }
+
+            // Datos base del cuadrante de estas semanas por si el CSV es bloqueado por CORS
+            var fallbackShifts = {
+                '25/10/2026': 'T',
+                '26/10/2026': 'T',
+                '27/10/2026': 'T',
+                '28/10/2026': '',
+                '29/10/2026': 'Nn',
+                '30/10/2026': 'Nnw',
+                '31/10/2026': 'Nnw',
+                '01/11/2026': 'Nn',
+                '02/11/2026': '',
+                '03/11/2026': '',
+                '04/11/2026': 'M',
+                '05/11/2026': 'M'
+            };
+
+            function renderSchedule(schedule) {
+                var now = new Date();
+                var todayKey = toDateStr(now);
+                var todayCode = schedule[todayKey] !== undefined ? schedule[todayKey] : (fallbackShifts[todayKey] || '');
+                
+                var codeEl = document.getElementById('shift-today-code');
+                var nameEl = document.getElementById('shift-today-name');
+
+                if (todayCode) {
+                    codeEl.textContent = todayCode;
+                    codeEl.style.color = "var(--accent)";
+                    nameEl.textContent = shiftNames[todayCode] || todayCode;
+                } else {
+                    codeEl.textContent = "LIBRE";
+                    codeEl.style.color = "var(--text-muted)";
+                    nameEl.textContent = "Día de descanso";
+                }
+
+                var listEl = document.getElementById('upcoming-shifts-list');
+                if (listEl) {
+                    listEl.innerHTML = '';
+                    for (var dayOff = 1; dayOff <= 4; dayOff++) {
+                        var target = new Date();
+                        target.setDate(now.getDate() + dayOff);
+                        var tKey = toDateStr(target);
+                        var code = schedule[tKey] !== undefined ? schedule[tKey] : (fallbackShifts[tKey] || '');
+                        var label = target.toLocaleDateString('es-ES', { weekday: 'short', day: 'numeric', month: 'numeric' });
+                        var isOff = !code;
+                        var badgeText = isOff ? 'Libre' : (shiftNames[code] ? code + ' · ' + shiftNames[code] : code);
+
+                        var li = document.createElement('li');
+                        li.innerHTML = '<span style="text-transform:capitalize;">' + label + '</span>' +
+                                       '<span class="tag ' + (isOff ? 'off' : '') + '">' + badgeText + '</span>';
+                        listEl.appendChild(li);
+                    }
+                }
+            }
+
+            // Primero pintamos con datos de respaldo para respuesta instantánea
+            renderSchedule(fallbackShifts);
+
+            // Intentamos sincronizar en vivo con el CSV publicado
+            fetch(csvUrl + '&_t=' + new Date().getTime())
+                .then(function(res) {
+                    if (!res.ok) throw new Error("HTTP " + res.status);
+                    return res.text();
+                })
+                .then(function(csv) {
+                    var lines = csv.trim().split(/\r?\n/);
+                    if (lines.length < 2) return;
+                    var delim = lines[0].indexOf(';') > -1 ? ';' : ',';
+                    var dynamicMap = {};
+
+                    for (var i = 1; i < lines.length; i++) {
+                        var parts = lines[i].split(delim);
+                        if (parts.length >= 3) {
+                            var dateKey = parts[0].replace(/["']/g, '').trim();
+                            var val = parts[2].replace(/["']/g, '').trim();
+                            dynamicMap[dateKey] = val;
+                        }
+                    }
+                    renderSchedule(dynamicMap);
+                })
+                .catch(function(err) {
+                    console.log("Usando cuadrante en caché/fallback:", err);
+                });
+        })();
+    </script>
+</body>
+</html>
