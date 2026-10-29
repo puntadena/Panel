@@ -228,18 +228,18 @@
     </header>
 
     <main class="dashboard-container">
-        <!-- Barra lateral -->
+        <!-- Columna Lateral -->
         <div class="sidebar">
             <section class="card">
                 <h2>Tiempo & Reloj</h2>
                 <div class="time-box">
                     <div class="clock" id="live-clock">--:--:--</div>
-                    <div class="date" id="live-date">Cargando...</div>
+                    <div class="date" id="live-date">Cargando fecha...</div>
                 </div>
                 <div class="weather-box">
                     <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">L'Hospitalet / BCN</div>
                     <div class="weather-temp" id="weather-temp">-- °C</div>
-                    <div class="weather-desc" id="weather-status">Consultando...</div>
+                    <div class="weather-desc" id="weather-status">Consultando clima...</div>
                 </div>
             </section>
 
@@ -248,7 +248,7 @@
                 <div class="shift-today-box">
                     <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turno de Hoy</div>
                     <div class="shift-badge" id="shift-today-code">--</div>
-                    <div class="shift-name" id="shift-today-name">Cargando...</div>
+                    <div class="shift-name" id="shift-today-name">Consultando cuadrante...</div>
                 </div>
                 <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">Próximos días:</div>
                 <ul class="upcoming-shifts" id="upcoming-shifts-list">
@@ -257,6 +257,33 @@
             </section>
         </div>
 
-        <!-- Enlaces principales -->
+        <!-- Columna Enlaces -->
         <section class="card">
-            <h2>Mis Enlaces
+            <h2>Mis Enlaces</h2>
+            <div class="links-grid">
+                <!-- Enlace 1: Ir al trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <span class="title">Ir al trabajo</span>
+                    <span class="url">FGC: Sant Josep &rarr; Europa | Fira</span>
+                </a>
+
+                <!-- Enlace 2: Vuelta del trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_code=SP" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <span class="title">Vuelta del trabajo</span>
+                    <span class="url">FGC: Europa | Fira &rarr; Sant Josep</span>
+                </a>
+
+                <!-- Enlace 3: Gmail -->
+                <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <span class="title">Correo</span>
+                    <span class="url">mail.google.com</span>
+                </a>
+
+                <!-- Enlace 4: GitHub -->
+                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-card">
+                    <span class="title">GitHub</span>
+                    <span class="url">github.com</span>
+                </a>
+
+                <!-- Enlace 5: Proxmox -->
+                <a href="
