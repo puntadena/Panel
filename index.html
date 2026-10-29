@@ -3,92 +3,278 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Panel Personal - FGC Sant Josep</title>
+    <title>Panel Personal</title>
     <style>
+        :root {
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-hover: #0284c7;
+            --border: #334155;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
-            background-color: #0f172a;
-            color: #f8fafc;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background-color: var(--bg-color);
+            color: var(--text-main);
             min-height: 100vh;
-        }
-        .widget-panel {
-            background-color: #1e293b;
-            border: 1px solid #334155;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            width: 100%;
-            max-width: 500px;
-        }
-        .header-widget {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-            margin-bottom: 16px;
-            border-bottom: 1px solid #334155;
-            padding-bottom: 12px;
+            padding: 2rem 1rem;
         }
-        .header-left {
-            display: flex;
-            align-items: center;
-        }
-        .logo-fgc {
-            background-color: #ffcc00;
-            color: #000;
-            font-weight: bold;
-            padding: 4px 8px;
-            border-radius: 6px;
-            margin-right: 12px;
-            font-size: 14px;
-        }
-        h3 {
-            margin: 0;
-            font-size: 18px;
-            color: #f1f5f9;
-        }
-        .frame-container {
-            border-radius: 12px;
-            overflow: hidden;
-            border: 1px solid #475569;
-            height: 520px;
-            background: #ffffff;
-        }
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        .modo-tag {
+
+        header {
             text-align: center;
-            font-size: 11px;
-            color: #4ade80;
-            margin-top: 15px;
-            font-weight: 500;
+            margin-bottom: 2rem;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            color: var(--accent);
+        }
+
+        .dashboard-container {
+            width: 100%;
+            max-width: 1000px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .dashboard-container {
+                grid-template-columns: 350px 1fr;
+            }
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+        }
+
+        .card h2 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+            color: var(--accent);
+        }
+
+        /* Widgets de tiempo */
+        .time-box {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .clock {
+            font-size: 2.2rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .date {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-top: 0.25rem;
+            text-transform: capitalize;
+        }
+
+        .weather-box {
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .weather-temp {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--text-main);
+        }
+
+        .weather-desc {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        /* Grid de enlaces */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 1rem;
+        }
+
+        .link-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--text-main);
+            transition: all 0.2s ease;
+        }
+
+        .link-card:hover {
+            border-color: var(--accent);
+            background: rgba(56, 189, 248, 0.08);
+            transform: translateY(-2px);
+        }
+
+        .link-card span.title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .link-card span.url {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.25rem;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        footer {
+            margin-top: auto;
+            padding-top: 2rem;
+            font-size: 0.8rem;
+            color: var(--text-muted);
         }
     </style>
 </head>
 <body>
 
-    <div class="widget-panel">
-        <div class="header-widget">
-            <div class="header-left">
-                <span class="logo-fgc">FGC</span>
-                <h3>Sant Josep - Panel Oficial</h3>
+    <header>
+        <h1>Panel de Control</h1>
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Acceso personal</p>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Bloque de widgets: Reloj y Clima -->
+        <section class="card">
+            <h2>Información & Tiempo</h2>
+            
+            <div class="time-box">
+                <div class="clock" id="live-clock">--:--:--</div>
+                <div class="date" id="live-date">Cargando fecha...</div>
             </div>
-        </div>
-        
-        <!-- Contenedor del visor web oficial sin bloqueos de red -->
-        <div class="frame-container">
-            <iframe src="https://fgc.cat"></iframe>
-        </div>
 
-        <div class="modo-tag">🌐 Visor oficial en tiempo real integrado de forma segura</div>
-    </div>
+            <div class="weather-box">
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;" id="weather-city">Madrid / Local</div>
+                <div class="weather-temp" id="weather-temp">-- °C</div>
+                <div class="weather-desc" id="weather-status">Obteniendo previsión...</div>
+            </div>
+        </section>
 
+        <!-- Bloque de accesos directos -->
+        <section class="card">
+            <h2>Mis Enlaces</h2>
+            <div class="links-grid">
+                <a href="https://mail.google.com" target="_blank" class="link-card">
+                    <span class="title">Correo</span>
+                    <span class="url">mail.google.com</span>
+                </a>
+                <a href="https://github.com" target="_blank" class="link-card">
+                    <span class="title">GitHub</span>
+                    <span class="url">github.com</span>
+                </a>
+                <a href="https://proxmox.local:8006" target="_blank" class="link-card">
+                    <span class="title">Proxmox / VPS</span>
+                    <span class="url">Panel de virtualización</span>
+                </a>
+                <a href="https://notion.so" target="_blank" class="link-card">
+                    <span class="title">Documentación</span>
+                    <span class="url">notion.so</span>
+                </a>
+                <a href="http://localhost:8080" target="_blank" class="link-card">
+                    <span class="title">Servidor Local</span>
+                    <span class="url">localhost:8080</span>
+                </a>
+                <a href="https://news.ycombinator.com" target="_blank" class="link-card">
+                    <span class="title">Hacker News</span>
+                    <span class="url">news.ycombinator.com</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        Área restringida · Autenticación local
+    </footer>
+
+    <script>
+        // Actualización de reloj y fecha
+        function updateClock() {
+            const now = new Date();
+            
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            document.getElementById('live-clock').textContent = `${hours}:${minutes}:${seconds}`;
+
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('live-date').textContent = now.toLocaleDateString('es-ES', options);
+        }
+
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // Interpretación de códigos WMO del clima
+        function decodeWmo(code) {
+            if (code === 0) return "Cielo despejado";
+            if (code >= 1 && code <= 3) return "Parcialmente nublado";
+            if (code >= 45 && code <= 48) return "Niebla";
+            if (code >= 51 && code <= 67) return "Lluvia ligera / llovizna";
+            if (code >= 71 && code <= 77) return "Nieve";
+            if (code >= 80 && code <= 82) return "Chubascos de lluvia";
+            if (code >= 95) return "Tormenta eléctrica";
+            return "Nublado";
+        }
+
+        // Obtención de datos meteorológicos (Madrid por defecto: 40.4168, -3.7038)
+        async function fetchWeather(lat = 40.4168, lon = -3.7038, cityLabel = "Madrid") {
+            try {
+                const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true`;
+                const res = await fetch(url);
+                if (!res.ok) throw new Error("Error en la consulta");
+                const data = await res.json();
+                
+                const temp = Math.round(data.current_weather.temperature);
+                const desc = decodeWmo(data.current_weather.weathercode);
+                
+                document.getElementById('weather-city').textContent = cityLabel;
+                document.getElementById('weather-temp').textContent = `${temp} °C`;
+                document.getElementById('weather-status').textContent = desc;
+            } catch (err) {
+                document.getElementById('weather-status').textContent = "No disponible offline";
+            }
+        }
+
+        // Intenta geolocalizar al usuario si el navegador lo permite
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+                (pos) => fetchWeather(pos.coords.latitude, pos.coords.longitude, "Ubicación actual"),
+                () => fetchWeather() // fallback por defecto si deniega permisos
+            );
+        } else {
+            fetchWeather();
+        }
+    </script>
 </body>
 </html>
