@@ -9,10 +9,10 @@
         body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; }
         header { text-align: center; margin-bottom: 2rem; }
         header h1 { font-size: 2.2rem; color: #38bdf8; }
-        .grid { width: 100%; max-width: 950px; display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-        @media (min-width: 768px) { .grid { grid-template-columns: 360px 1fr; } }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); margin-bottom: 1.5rem; }
-        .card:last-child { margin-bottom: 0; }
+        .container { width: 100%; max-width: 950px; display: flex; flex-direction: column; gap: 1.5rem; }
+        .grid-bottom { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+        @media (min-width: 768px) { .grid-bottom { grid-template-columns: 360px 1fr; } }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
         h2 { font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; color: #38bdf8; }
         .box { background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; padding: 1rem; text-align: center; margin-bottom: 1rem; }
         .temp { font-size: 2.4rem; font-weight: bold; }
@@ -24,7 +24,7 @@
         li { display: flex; justify-content: space-between; padding: 0.5rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
         .tag { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; background: #0284c7; color: #fff; }
         .tag.off { background: #475569; color: #94a3b8; }
-        .links { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; }
+        .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
         .link { display: flex; flex-direction: column; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; text-decoration: none; color: #f8fafc; transition: all 0.2s ease; }
         .link:hover { border-color: #38bdf8; background: rgba(56,189,248,0.08); transform: translateY(-2px); }
         .link b { font-size: 1rem; }
@@ -38,9 +38,34 @@
         <p style="color: #94a3b8; font-size: 0.9rem;">Acceso personal</p>
     </header>
 
-    <main class="grid">
-        <!-- Columna Izquierda: El Tiempo -->
-        <div>
+    <div class="container">
+        <!-- 1. PRIMERO: Mis Enlaces -->
+        <section class="card">
+            <h2>Mis Enlaces</h2>
+            <div class="links">
+                <!-- 1. Ir al trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Ir al trabajo</b>
+                    <span>FGC: Sant Josep &rarr; Europa | Fira</span>
+                </a>
+
+                <!-- 2. Vuelta del trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta del trabajo</b>
+                    <span>FGC: Europa | Fira &rarr; Sant Josep</span>
+                </a>
+
+                <!-- 3. Vuelta en metro (Google Maps) -->
+                <a href="https://maps.app.goo.gl/cCsb3RTMEJxszoAL8" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta en metro</b>
+                    <span>Google Maps</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. DESPUÉS: El Tiempo y Horarios -->
+        <div class="grid-bottom">
+            <!-- El Tiempo -->
             <section class="card">
                 <h2>El Tiempo</h2>
                 <div class="box">
@@ -64,10 +89,8 @@
                     </div>
                 </div>
             </section>
-        </div>
 
-        <!-- Columna Derecha: Turnos + Tus 3 Enlaces -->
-        <div>
+            <!-- Horario Laboral -->
             <section class="card">
                 <h2>Horario Laboral <span style="font-size:0.8rem; color:#94a3b8; font-weight:normal;">Equipo E11</span></h2>
                 <div class="box" style="border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.05);">
@@ -83,37 +106,14 @@
                     <li><span>Lunes</span><span class="tag off">Libre</span></li>
                 </ul>
             </section>
-
-            <section class="card">
-                <h2>Mis Enlaces</h2>
-                <div class="links">
-                    <!-- 1. Ir al trabajo -->
-                    <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link">
-                        <b>Ir al trabajo</b>
-                        <span>FGC: Sant Josep &rarr; Europa | Fira</span>
-                    </a>
-
-                    <!-- 2. Vuelta del trabajo -->
-                    <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link">
-                        <b>Vuelta del trabajo</b>
-                        <span>FGC: Europa | Fira &rarr; Sant Josep</span>
-                    </a>
-
-                    <!-- 3. Vuelta en metro (Google Maps) -->
-                    <a href="https://maps.app.goo.gl/cCsb3RTMEJxszoAL8" target="_blank" rel="noopener noreferrer" class="link">
-                        <b>Vuelta en metro</b>
-                        <span>Google Maps</span>
-                    </a>
-                </div>
-            </section>
         </div>
-    </main>
+    </div>
 
     <footer style="margin-top:auto; padding-top:2rem; font-size:0.8rem; color:#94a3b8;">
         Área restringida &middot; Panel de Control
     </footer>
 
-    <!-- Scripts de carga dinámica -->
+    <!-- Scripts -->
     <script>
         function dw(c) {
             c = Number(c);
@@ -125,7 +125,7 @@
             return "Nublado";
         }
 
-        // 1. Clima en tiempo real (Open-Meteo)
+        // 1. Meteorología
         fetch("https://api.open-meteo.com/v1/forecast?latitude=41.3596&longitude=2.0997&current_weather=true&daily=weathercode,temperature_2m_max,temperature_2m_min&timezone=auto")
             .then(r => r.json())
             .then(d => {
@@ -147,7 +147,7 @@
                 }
             }).catch(e => {});
 
-        // 2. Horarios en vivo desde Google Sheets
+        // 2. Horarios en vivo
         (function() {
             var sn = {'M':'Mañana', 'T':'Tarde', 'Nn':'Noche', 'Nnw':'Noche Fin de Semana'};
             var pad = n => (n < 10 ? '0' : '') + n;
