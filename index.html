@@ -1,4 +1,3 @@
-cat << 'EOF' > /home/puntadena/web_restricted/index.html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -226,4 +225,41 @@ cat << 'EOF' > /home/puntadena/web_restricted/index.html
 
     <header>
         <h1>Panel de Control</h1>
-        <p style="color: var
+        <p style="color: var(--text-muted); font-size: 0.9rem;">Acceso personal</p>
+    </header>
+
+    <main class="dashboard-container">
+        <!-- Columna lateral: Tiempo y Turnos -->
+        <div class="sidebar">
+            <section class="card">
+                <h2>Tiempo & Reloj</h2>
+                <div class="time-box">
+                    <div class="clock" id="live-clock">--:--:--</div>
+                    <div class="date" id="live-date">Cargando fecha...</div>
+                </div>
+                <div class="weather-box">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;" id="weather-city">Ubicación local</div>
+                    <div class="weather-temp" id="weather-temp">-- °C</div>
+                    <div class="weather-desc" id="weather-status">Obteniendo previsión...</div>
+                </div>
+            </section>
+
+            <section class="card">
+                <h2>Horario Laboral <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Equipo E11</span></h2>
+                <div class="shift-today-box">
+                    <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turno de Hoy</div>
+                    <div class="shift-badge" id="shift-today-code">--</div>
+                    <div class="shift-name" id="shift-today-name">Consultando cuadrante...</div>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">Próximos días:</div>
+                <ul class="upcoming-shifts" id="upcoming-shifts-list">
+                    <li><span>Cargando...</span></li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- Columna principal: Enlaces -->
+        <section class="card">
+            <h2>Mis Enlaces</h2>
+            <div class="links-grid">
+                <a href="
