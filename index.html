@@ -12,8 +12,6 @@
             --text-muted: #94a3b8;
             --accent: #38bdf8;
             --border: #334155;
-            --badge-work: #0284c7;
-            --badge-off: #475569;
         }
 
         * {
@@ -39,28 +37,28 @@
         }
 
         header h1 {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--accent);
         }
 
         .dashboard-container {
             width: 100%;
-            max-width: 1100px;
+            max-width: 1050px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .top-row {
             display: grid;
             grid-template-columns: 1fr;
             gap: 1.5rem;
         }
 
-        @media (min-width: 820px) {
-            .dashboard-container {
+        @media (min-width: 768px) {
+            .top-row {
                 grid-template-columns: 360px 1fr;
             }
-        }
-
-        .sidebar {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
         }
 
         .card {
@@ -73,7 +71,7 @@
 
         .card h2 {
             font-size: 1.2rem;
-            margin-bottom: 1rem;
+            margin-bottom: 1.2rem;
             border-bottom: 1px solid var(--border);
             padding-bottom: 0.5rem;
             color: var(--accent);
@@ -82,100 +80,49 @@
             justify-content: space-between;
         }
 
+        /* Reloj y Fecha */
         .time-box {
             text-align: center;
             margin-bottom: 1.5rem;
         }
 
         .clock {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 700;
             letter-spacing: 2px;
+            color: #fff;
         }
 
         .date {
             color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-top: 0.25rem;
+            font-size: 1rem;
+            margin-top: 0.3rem;
             text-transform: capitalize;
         }
 
         .weather-box {
             background: rgba(255, 255, 255, 0.03);
             border-radius: 8px;
-            padding: 1rem;
+            padding: 1.2rem;
             text-align: center;
         }
 
         .weather-temp {
-            font-size: 2rem;
+            font-size: 2.2rem;
             font-weight: bold;
             color: var(--text-main);
         }
 
         .weather-desc {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin-top: 0.25rem;
         }
 
-        .shift-today-box {
-            text-align: center;
-            background: rgba(56, 189, 248, 0.05);
-            border: 1px solid rgba(56, 189, 248, 0.2);
-            border-radius: 8px;
-            padding: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .shift-badge {
-            display: inline-block;
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--accent);
-            margin: 0.25rem 0;
-        }
-
-        .shift-name {
-            font-size: 1rem;
-            color: var(--text-muted);
-        }
-
-        .upcoming-shifts {
-            list-style: none;
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
-            font-size: 0.88rem;
-        }
-
-        .upcoming-shifts li {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0.45rem 0.6rem;
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 6px;
-            border: 1px solid rgba(255, 255, 255, 0.04);
-        }
-
-        .upcoming-shifts .tag {
-            font-weight: 600;
-            padding: 0.15rem 0.5rem;
-            border-radius: 4px;
-            background: var(--badge-work);
-            color: #fff;
-            font-size: 0.8rem;
-        }
-
-        .upcoming-shifts .tag.off {
-            background: var(--badge-off);
-            color: var(--text-muted);
-        }
-
+        /* Enlaces */
         .links-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 1rem;
         }
 
@@ -212,9 +159,25 @@
             white-space: nowrap;
         }
 
+        /* Contenedor del Cuadrante (iframe de Google Sheets) */
+        .sheet-container {
+            width: 100%;
+            height: 480px;
+            border-radius: 8px;
+            overflow: hidden;
+            background: #fff;
+            border: 1px solid var(--border);
+        }
+
+        .sheet-container iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
         footer {
             margin-top: auto;
-            padding-top: 2rem;
+            padding-top: 2.5rem;
             font-size: 0.8rem;
             color: var(--text-muted);
         }
@@ -228,8 +191,9 @@
     </header>
 
     <main class="dashboard-container">
-        <!-- Columna Lateral -->
-        <div class="sidebar">
+        <!-- Fila Superior: Tiempo y Enlaces -->
+        <div class="top-row">
+            <!-- Tarjeta 1: Reloj & Clima -->
             <section class="card">
                 <h2>Tiempo & Reloj</h2>
                 <div class="time-box">
@@ -239,51 +203,25 @@
                 <div class="weather-box">
                     <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.3rem;">L'Hospitalet / BCN</div>
                     <div class="weather-temp" id="weather-temp">-- °C</div>
-                    <div class="weather-desc" id="weather-status">Consultando clima...</div>
+                    <div class="weather-desc" id="weather-status">Consultando previsión...</div>
                 </div>
             </section>
 
+            <!-- Tarjeta 2: Mis Enlaces -->
             <section class="card">
-                <h2>Horario Laboral <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: normal;">Equipo E11</span></h2>
-                <div class="shift-today-box">
-                    <div style="font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase;">Turno de Hoy</div>
-                    <div class="shift-badge" id="shift-today-code">--</div>
-                    <div class="shift-name" id="shift-today-name">Consultando cuadrante...</div>
+                <h2>Mis Enlaces</h2>
+                <div class="links-grid">
+                    <!-- Enlace 1: Ida al trabajo -->
+                    <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span class="title">Ir al trabajo</span>
+                        <span class="url">FGC: Sant Josep &rarr; Europa | Fira</span>
+                    </a>
+
+                    <!-- Enlace 2: Vuelta del trabajo -->
+                    <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link-card">
+                        <span class="title">Vuelta del trabajo</span>
+                        <span class="url">FGC: Europa | Fira &rarr; Sant Josep</span>
+                    </a>
                 </div>
-                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.4rem;">Próximos días:</div>
-                <ul class="upcoming-shifts" id="upcoming-shifts-list">
-                    <li><span>Cargando previsión...</span></li>
-                </ul>
             </section>
         </div>
-
-        <!-- Columna Enlaces -->
-        <section class="card">
-            <h2>Mis Enlaces</h2>
-            <div class="links-grid">
-                <!-- Enlace 1: Ir al trabajo -->
-                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link-card">
-                    <span class="title">Ir al trabajo</span>
-                    <span class="url">FGC: Sant Josep &rarr; Europa | Fira</span>
-                </a>
-
-                <!-- Enlace 2: Vuelta del trabajo -->
-                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_code=SP" target="_blank" rel="noopener noreferrer" class="link-card">
-                    <span class="title">Vuelta del trabajo</span>
-                    <span class="url">FGC: Europa | Fira &rarr; Sant Josep</span>
-                </a>
-
-                <!-- Enlace 3: Gmail -->
-                <a href="https://mail.google.com" target="_blank" rel="noopener noreferrer" class="link-card">
-                    <span class="title">Correo</span>
-                    <span class="url">mail.google.com</span>
-                </a>
-
-                <!-- Enlace 4: GitHub -->
-                <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="link-card">
-                    <span class="title">GitHub</span>
-                    <span class="url">github.com</span>
-                </a>
-
-                <!-- Enlace 5: Proxmox -->
-                <a href="
