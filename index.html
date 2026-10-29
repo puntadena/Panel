@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Panel - FGC Sant Josep</title>
+    <title>Mi Panel Personal - FGC Sant Josep</title>
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
@@ -12,7 +12,6 @@
             margin: 0;
             padding: 20px;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -24,13 +23,13 @@
             border-radius: 16px;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
             width: 100%;
-            max-width: 450px;
+            max-width: 500px;
         }
         .header-widget {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
             border-bottom: 1px solid #334155;
             padding-bottom: 12px;
         }
@@ -52,79 +51,24 @@
             font-size: 18px;
             color: #f1f5f9;
         }
-        .clock {
-            font-size: 14px;
-            color: #94a3b8;
-            font-weight: 500;
-        }
-        .filter-container {
-            display: flex;
-            justify-content: flex-end;
-            margin-bottom: 16px;
-        }
-        .direction-select {
-            background-color: #0f172a;
-            color: #f1f5f9;
+        .frame-container {
+            border-radius: 12px;
+            overflow: hidden;
             border: 1px solid #475569;
-            padding: 6px 10px;
-            border-radius: 8px;
-            font-size: 13px;
-            cursor: pointer;
-            outline: none;
+            height: 520px;
+            background: #ffffff;
         }
-        .direction-select:focus {
-            border-color: #ffcc00;
-        }
-        .train-list {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            min-height: 180px;
-        }
-        .train-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: #0f172a;
-            padding: 14px 16px;
-            border-radius: 10px;
-            border-left: 5px solid #ffcc00;
-        }
-        .train-info {
-            display: flex;
-            flex-direction: column;
-        }
-        .line-badge {
-            font-weight: bold;
-            color: #ffcc00;
-            font-size: 14px;
-            margin-bottom: 2px;
-        }
-        .destination {
-            font-size: 16px;
-            font-weight: 500;
-        }
-        .time-eta {
-            font-size: 16px;
-            font-weight: bold;
-        }
-        .time-now {
-            color: #ef4444;
-            animation: parpadeo 1.5s infinite;
-        }
-        .time-future {
-            color: #4ade80;
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
         }
         .modo-tag {
             text-align: center;
             font-size: 11px;
+            color: #4ade80;
             margin-top: 15px;
             font-weight: 500;
-        }
-        @keyframes parpadeo {
-            0% { opacity: 1; }
-            50% { opacity: 0.4; }
-            100% { opacity: 1; }
         }
     </style>
 </head>
@@ -134,130 +78,17 @@
         <div class="header-widget">
             <div class="header-left">
                 <span class="logo-fgc">FGC</span>
-                <h3>Sant Josep</h3>
+                <h3>Sant Josep - Panel Oficial</h3>
             </div>
-            <div id="reloj" class="clock">00:00:00</div>
         </div>
         
-        <div class="filter-container">
-            <select id="filtro-direccion" class="direction-select" onchange="procesarFiltroYTrenes()">
-                <option value="todos">↕️ Todas las direcciones</option>
-                <option value="barcelona" selected>➡️ Dir. Barcelona (Pl. Espanya)</option>
-                <option value="comarca">⬅️ Dir. Comarca (Martorell / Manresa)</option>
-            </select>
-        </div>
-        
-        <div id="pantalla-trenes" class="train-list">
-            <div style="text-align:center; padding:20px; color:#64748b;">Sincronizando vías...</div>
+        <!-- Contenedor del visor web oficial sin bloqueos de red -->
+        <div class="frame-container">
+            <iframe src="https://fgc.cat"></iframe>
         </div>
 
-        <div id="indicador-red" class="modo-tag">Conectando...</div>
+        <div class="modo-tag">🌐 Visor oficial en tiempo real integrado de forma segura</div>
     </div>
 
-    <script>
-        // Guardaremos aquí los trenes reales recibidos de internet
-        let trenesEnVivoGlobal = [];
-
-        async function obtenerDatosRealesFGC() {
-            const indicador = document.getElementById('indicador-red');
-            
-            try {
-                // API oficial de Geotren FGC de posicionamiento y ocupación en tiempo real
-                const apiFGC = 'https://fgc.cat';
-                
-                // Usamos un proxy CORS inverso abierto para saltar el bloqueo de seguridad de GitHub Pages
-                const proxyCORS = 'https://cors-anywhere.herokuapp.com/'; 
-                
-                const respuesta = await fetch(proxyCORS + apiFGC, {
-                    headers: { 'X-Requested-With': 'XMLHttpRequest' }
-                });
-                
-                if (!respuesta.ok) throw new Error("Proxy ocupado o caída de red");
-                
-                const data = await respuesta.json();
-                
-                if (data.results && data.results.length > 0) {
-                    // Limpiamos y estructuramos los datos crudos de FGC
-                    trenesEnVivoGlobal = data.results.map(tren => {
-                        // Clasificación de rutas reales de Sant Josep
-                        const esHaciaBarcelona = tren.desti.includes("Espanya");
-                        
-                        let minutosEstablecidos = tren.retard || 0;
-                        let estadoVisual = tren.estat_tren === "Parat" ? "En andén" : `${minutosEstablecidos} min`;
-                        
-                        return {
-                            linia: tren.linia || "FGC",
-                            desti: tren.desti,
-                            tiempo: estadoVisual,
-                            esAnden: tren.estat_tren === "Parat",
-                            direccion: esHaciaBarcelona ? "barcelona" : "comarca"
-                        };
-                    });
-                    
-                    indicador.innerText = "🌐 Conectado: Tiempos reales en vivo desde FGC";
-                    indicador.style.color = "#4ade80";
-                } else {
-                    throw new Error("Sin trenes pasando ahora mismo");
-                }
-                
-            } catch (error) {
-                // Si el proxy público está saturado temporalmente, el sistema no se cuelga:
-                // Carga un horario de contingencia inteligente dinámico basado en la hora de tu PC
-                indicador.innerText = "⚠️ Modo respaldo: Malla horaria oficial sincronizada";
-                indicador.style.color = "#eab308";
-                generarMallaRespaldoRealista();
-            }
-            
-            procesarFiltroYTrenes();
-        }
-
-        function generarMallaRespaldoRealista() {
-            const minutos = new Date().getMinutes();
-            // Simula trenes reales separados por 4, 9 y 15 minutos exactos según el reloj de tu PC
-            trenesEnVivoGlobal = [
-                { linia: "S3", desti: "Pl. Espanya", tiempo: `${((minutos + 3) % 7) + 1} min`, esAnden: false, direccion: "barcelona" },
-                { linia: "S8", desti: "Pl. Espanya", tiempo: `${((minutos + 8) % 11) + 4} min`, esAnden: false, direccion: "barcelona" },
-                { linia: "R5", desti: "Martorell Enllaç", tiempo: `${((minutos + 5) % 12) + 2} min`, esAnden: false, direccion: "comarca" },
-                { linia: "S4", desti: "Olesa de M.", tiempo: `${((minutos + 11) % 15) + 6} min`, esAnden: false, direccion: "comarca" }
-            ];
-        }
-
-        function procesarFiltroYTrenes() {
-            const ahora = new Date();
-            document.getElementById('reloj').innerText = ahora.toLocaleTimeString('es-ES');
-            
-            const filtroActivo = document.getElementById('filtro-direccion').value;
-            const contenedor = document.getElementById('pantalla-trenes');
-            contenedor.innerHTML = '';
-            
-            let filtrados = trenesEnVivoGlobal;
-            if (filtroActivo !== "todos") {
-                filtrados = trenesEnVivoGlobal.filter(t => t.direccion === filtroActivo);
-            }
-            
-            // Extraer solo los 3 trenes inminentes del filtro seleccionado
-            const mostrados = filtrados.slice(0, 3);
-            
-            if (mostrados.length === 0) {
-                contenedor.innerHTML = '<div style="text-align:center; padding:30px; color:#64748b; font-style:italic;">No hay trenes programados en este sentido ahora</div>';
-                return;
-            }
-            
-            mostrados.forEach(tren => {
-                const item = document.createElement('div');
-                item.className = 'train-item';
-                
-                const claseTiempo = tren.esAnden ? "time-now" : "time-future";
-                
-                item.innerHTML = `
-                    <div class="train-info">
-                        <span class="line-badge">${tren.linia}</span>
-                        <span class="destination">${tren.desti}</span>
-                    </div>
-                    <div class="time-eta ${claseTiempo}">${tren.tiempo}</div>
-                `;
-                contenedor.appendChild(item);
-            });
-        }
-
-
+</body>
+</html>
