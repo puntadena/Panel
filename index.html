@@ -5,17 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel Personal</title>
     <style>
-        :root {
-            --bg-color: #0f172a;
-            --card-bg: #1e293b;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #38bdf8;
-            --border: #334155;
-            --badge-work: #0284c7;
-            --badge-off: #475569;
-        }
-
         * {
             box-sizing: border-box;
             margin: 0;
@@ -24,8 +13,8 @@
         }
 
         body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
+            background-color: #0f172a;
+            color: #f8fafc;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
@@ -40,7 +29,7 @@
 
         header h1 {
             font-size: 2.2rem;
-            color: var(--accent);
+            color: #38bdf8;
         }
 
         .dashboard-container {
@@ -58,8 +47,8 @@
         }
 
         .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border);
+            background: #1e293b;
+            border: 1px solid #334155;
             border-radius: 12px;
             padding: 1.5rem;
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
@@ -68,9 +57,9 @@
         .card h2 {
             font-size: 1.2rem;
             margin-bottom: 1.2rem;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid #334155;
             padding-bottom: 0.5rem;
-            color: var(--accent);
+            color: #38bdf8;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -83,17 +72,17 @@
             padding: 1rem;
             text-align: center;
             margin-bottom: 1rem;
-            border: 1px solid var(--border);
+            border: 1px solid #334155;
         }
 
         .weather-temp {
             font-size: 2.4rem;
             font-weight: bold;
-            color: var(--text-main);
+            color: #f8fafc;
         }
 
         .weather-desc {
-            color: var(--accent);
+            color: #38bdf8;
             font-weight: 600;
             font-size: 1rem;
             margin-top: 0.2rem;
@@ -107,6 +96,98 @@
 
         .forecast-card {
             background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border);
+            border: 1px solid #334155;
             border-radius: 8px;
-            padding
+            padding: 0.75rem;
+            text-align: center;
+        }
+
+        .forecast-day {
+            font-size: 0.85rem;
+            color: #94a3b8;
+            text-transform: capitalize;
+            font-weight: 600;
+        }
+
+        .forecast-temp {
+            font-size: 1.05rem;
+            font-weight: bold;
+            margin: 0.25rem 0;
+            color: #f8fafc;
+        }
+
+        .forecast-desc {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+
+        /* Bloque de Turnos */
+        .shift-today-box {
+            text-align: center;
+            background: rgba(56, 189, 248, 0.06);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            border-radius: 8px;
+            padding: 1.2rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .shift-badge {
+            display: inline-block;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: #38bdf8;
+            margin: 0.2rem 0;
+        }
+
+        .shift-name {
+            font-size: 1.1rem;
+            color: #94a3b8;
+        }
+
+        .upcoming-shifts {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.6rem;
+            font-size: 0.9rem;
+        }
+
+        .upcoming-shifts li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0.55rem 0.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            border-radius: 6px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .upcoming-shifts .tag {
+            font-weight: 600;
+            padding: 0.2rem 0.6rem;
+            border-radius: 4px;
+            background: #0284c7;
+            color: #fff;
+            font-size: 0.82rem;
+        }
+
+        .upcoming-shifts .tag.off {
+            background: #475569;
+            color: #94a3b8;
+        }
+
+        /* Enlaces */
+        .links-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .link-card {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 1.1rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid #3
