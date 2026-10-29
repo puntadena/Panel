@@ -30,7 +30,7 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 20px;
+            margin-bottom: 12px;
             border-bottom: 1px solid #334155;
             padding-bottom: 12px;
         }
@@ -56,6 +56,24 @@
             font-size: 14px;
             color: #94a3b8;
             font-weight: 500;
+        }
+        .filter-container {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 16px;
+        }
+        .direction-select {
+            background-color: #0f172a;
+            color: #f1f5f9;
+            border: 1px solid #475569;
+            padding: 6px 10px;
+            border-radius: 8px;
+            font-size: 13px;
+            cursor: pointer;
+            outline: none;
+        }
+        .direction-select:focus {
+            border-color: #ffcc00;
         }
         .train-list {
             display: flex;
@@ -93,7 +111,7 @@
         .modo-tag {
             text-align: center;
             font-size: 11px;
-            color: #4ade80;
+            color: #64748b;
             margin-top: 15px;
         }
     </style>
@@ -101,6 +119,7 @@
 <body>
 
     <div class="widget-panel">
+        <!-- Cabecera con título y reloj -->
         <div class="header-widget">
             <div class="header-left">
                 <span class="logo-fgc">FGC</span>
@@ -109,6 +128,16 @@
             <div id="reloj" class="clock">00:00:00</div>
         </div>
         
+        <!-- Filtro de Dirección -->
+        <div class="filter-container">
+            <select id="filtro-direccion" class="direction-select" onchange="calcularProximosTrenes()">
+                <option value="todos">↕️ Todas las direcciones</option>
+                <option value="barcelona" selected>➡️ Dir. Barcelona (Pl. Espanya)</option>
+                <option value="comarca">⬅️ Dir. Comarca (Martorell / Manresa / Igualada)</option>
+            </select>
+        </div>
+        
+        <!-- Listado de Trenes -->
         <div id="pantalla-trenes" class="train-list">
             <!-- Se calcula dinámicamente -->
         </div>
@@ -117,38 +146,57 @@
     </div>
 
     <script>
-        // Intervalos oficiales aproximados de paso en Sant Josep (Llobregat-Anoia) hacia Pl. Espanya y comarca
+        // Malla horaria clasificada por dirección ("barcelona" o "comarca")
         const mallaHoraria = [
-            { linia: "S3", desti: "Pl. Espanya", frecuencia: 7 },
-            { linia: "S8", desti: "Martorell Enllaç", frecuencia: 11 },
-            { linia: "R5", desti: "Manresa Baixador", frecuencia: 19 },
-            { linia: "S4", desti: "Olesa de M.", frecuencia: 14 },
-            { linia: "R6", desti: "Igualada", frecuencia: 23 }
+            // Destinos hacia Barcelona (Vía 1)
+            { linia: "S3", desti: "Pl. Espanya", frecuencia: 8, direccion: "barcelona" },
+            { linia: "S4", desti: "Pl. Espanya", frecuencia: 14, direccion: "barcelona" },
+            { linia: "S8", desti: "Pl. Espanya", frecuencia: 11, direccion: "barcelona" },
+            { linia: "R5", desti: "Pl. Espanya", frecuencia: 20, direccion: "barcelona" },
+            { linia: "R6", desti: "Pl. Espanya", frecuencia: 22, direccion: "barcelona" },
+            
+            // Destinos hacia Comarca (Vía 2)
+            { linia: "S3", desti: "Can Ros", frecuencia: 9, direccion: "comarca" },
+            { linia: "S4", desti: "Olesa de M.", frecuencia: 15, direccion: "comarca" },
+            { linia: "S8", desti: "Martorell Enllaç", frecuencia: 12, direccion: "comarca" },
+            { linia: "R5", desti: "Manresa Baixador", frecuencia: 19, direccion: "comarca" },
+            { linia: "R6", desti: "Igualada", frecuencia: 24, direccion: "comarca" }
         ];
 
         function calcularProximosTrenes() {
             const ahora = new Date();
             
-            // Actualizar reloj de la cabecera
+            // Actualizar reloj
             document.getElementById('reloj').innerText = ahora.toLocaleTimeString('es-ES');
             
             const minutosActuales = ahora.getMinutes() + (ahora.getSeconds() / 60);
+            const filtroActivo = document.getElementById('filtro-direccion').value;
             const contenedor = document.getElementById('pantalla-trenes');
             contenedor.innerHTML = '';
 
-            // Calculamos matemáticamente el desfase real de tiempo según la hora actual del dispositivo
-            let trenesCalculados = mallaHoraria.map(tren => {
-                // Genera un algoritmo basado en la frecuencia para simular el paso constante oficial
+            // 1. Filtrar la lista según la dirección seleccionada
+            let lineasFiltradas = mallaHoraria;
+            if (filtroActivo !== "todos") {
+                lineasFiltradas = mallaHoraria.filter(tren => tren.direccion === filtroActivo);
+            }
+
+            // 2. Calcular matemáticamente el desfase de tiempo de cada línea
+            let trenesCalculados = lineasFiltradas.map(tren => {
                 let minutosRestantes = Math.ceil(tren.frecuencia - (minutosActuales % tren.frecuencia));
                 if (minutosRestantes === tren.frecuencia) minutosRestantes = 0;
                 
                 return { ...tren, minutos: minutosRestantes };
             });
 
-            // Ordenamos los trenes para que aparezca arriba el que va a llegar antes
+            // 3. Ordenar para mostrar los que llegan antes
             trenesCalculados.sort((a, b) => a.minutos - b.minutos);
 
-            // Pintamos los 3 trenes más próximos a la hora actual en Sant Josep
+            // 4. Pintar los 3 resultados más próximos
+            if (trenesCalculados.length === 0) {
+                contenedor.innerHTML = '<div style="text-align:center; padding:20px; color:#64748b;">No hay trenes programados</div>';
+                return;
+            }
+
             trenesCalculados.slice(0, 3).forEach(tren => {
                 const item = document.createElement('div');
                 item.className = 'train-item';
@@ -166,9 +214,8 @@
             });
         }
 
-        // Ejecutar inmediatamente
+        // Ejecución inicial y bucle de refresco cronométrico continuo
         calcularProximosTrenes();
-        // Recalcular con precisión cronométrica cada segundo de forma automática
         setInterval(calcularProximosTrenes, 1000);
     </script>
 </body>
