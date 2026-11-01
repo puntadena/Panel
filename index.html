@@ -6,42 +6,42 @@
     <title>Panel Hospitalet</title>
     <style>
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
-        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; }
-        header { text-align: center; margin-bottom: 2rem; }
-        header h1 { font-size: 2.2rem; color: #38bdf8; }
-        .container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 1.5rem; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
-        h2 { font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; color: #38bdf8; }
+        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; }
+        header { text-align: center; margin-bottom: 1.5rem; }
+        header h1 { font-size: 2rem; color: #38bdf8; }
+        .container { width: 100%; max-width: 750px; display: flex; flex-direction: column; gap: 1.2rem; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        h2 { font-size: 1.1rem; margin-bottom: 0.8rem; border-bottom: 1px solid #334155; padding-bottom: 0.4rem; color: #38bdf8; }
         
-        /* Enlaces */
-        .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-        .link { display: flex; flex-direction: column; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; text-decoration: none; color: #f8fafc; transition: all 0.2s ease; }
+        /* 1. Enlaces */
+        .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 0.8rem; }
+        .link { display: flex; flex-direction: column; padding: 0.8rem; background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; text-decoration: none; color: #f8fafc; transition: all 0.2s ease; }
         .link:hover { border-color: #38bdf8; background: rgba(56,189,248,0.08); transform: translateY(-2px); }
-        .link b { font-size: 1rem; }
-        .link span { font-size: 0.75rem; color: #94a3b8; margin-top: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .link b { font-size: 0.95rem; }
+        .link span { font-size: 0.75rem; color: #94a3b8; margin-top: 0.2rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-        /* Autobús */
-        .bus-subcard { background: rgba(255,255,255,0.02); border: 1px solid #334155; border-radius: 8px; padding: 1rem; margin-bottom: 0.8rem; }
-        .bus-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.9rem; font-weight: bold; color: #38bdf8; margin-bottom: 0.5rem; }
-        .bus-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.5rem 0; }
-        .bus-item { background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.8rem; font-weight: bold; }
+        /* 2. Autobuses */
+        .bus-subcard { background: rgba(255,255,255,0.02); border: 1px solid #334155; border-radius: 8px; padding: 0.8rem; margin-bottom: 0.6rem; }
+        .bus-header { display: flex; justify-content: space-between; align-items: center; font-size: 0.85rem; font-weight: bold; color: #38bdf8; margin-bottom: 0.4rem; }
+        .bus-list { display: flex; gap: 0.5rem; flex-wrap: wrap; margin: 0.4rem 0; }
+        .bus-item { background: rgba(15, 23, 42, 0.6); border: 1px solid #334155; border-radius: 4px; padding: 0.3rem 0.6rem; font-size: 0.75rem; font-weight: bold; }
         .bus-item.sig { border-color: #38bdf8; color: #38bdf8; }
         .bus-link { color: #38bdf8; font-size: 0.75rem; text-decoration: none; display: block; text-align: right; }
 
-        /* Clima */
-        .clima-bloque { margin-bottom: 1.2rem; }
-        .clima-tit { font-size: 0.95rem; font-weight: bold; color: #38bdf8; margin-bottom: 0.3rem; }
-        .clima-sub { font-size: 0.75rem; color: #94a3b8; text-transform: uppercase; margin: 0.4rem 0 0.3rem; }
-        .grid-dias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; margin-bottom: 0.5rem; }
-        .grid-horas { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.4rem; }
-        .clima-item { background: rgba(255,255,255,0.02); border: 1px solid #334155; border-radius: 6px; padding: 0.5rem 0.2rem; text-align: center; font-size: 0.75rem; }
+        /* 3. Clima */
+        .clima-bloque { margin-bottom: 1rem; }
+        .clima-tit { font-size: 0.9rem; font-weight: bold; color: #38bdf8; margin-bottom: 0.2rem; }
+        .clima-sub { font-size: 0.7rem; color: #94a3b8; text-transform: uppercase; margin: 0.4rem 0 0.2rem; }
+        .grid-dias { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.4rem; margin-bottom: 0.4rem; }
+        .grid-horas { display: grid; grid-template-columns: repeat(6, 1fr); gap: 0.3rem; }
+        .clima-item { background: rgba(255,255,255,0.02); border: 1px solid #334155; border-radius: 6px; padding: 0.4rem 0.2rem; text-align: center; font-size: 0.75rem; }
 
-        /* Horario Turnos */
-        .box { background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.3); border-radius: 8px; padding: 1.2rem; text-align: center; margin-bottom: 1.2rem; }
-        .shift-badge { font-size: 2.5rem; font-weight: 800; color: #38bdf8; margin: 0.2rem 0; }
-        ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; }
-        li { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
-        .tag { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; }
+        /* 4. Turnos */
+        .box { background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.3); border-radius: 8px; padding: 1rem; text-align: center; margin-bottom: 1rem; }
+        .shift-badge { font-size: 2.2rem; font-weight: 800; color: #38bdf8; margin: 0.2rem 0; }
+        ul { list-style: none; display: flex; flex-direction: column; gap: 0.5rem; font-size: 0.9rem; }
+        li { display: flex; justify-content: space-between; align-items: center; padding: 0.5rem 0.8rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
+        .tag { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.75rem; }
         .tag.mañana { background: #0284c7; color: #fff; }
         .tag.tarde { background: #d97706; color: #fff; }
         .tag.noche { background: #7c3aed; color: #fff; }
@@ -53,7 +53,7 @@
 
     <header>
         <h1>Panel Hospitalet</h1>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Acceso personal</p>
+        <p style="color: #94a3b8; font-size: 0.85rem;">Acceso personal</p>
     </header>
 
     <div class="container">
@@ -65,3 +65,241 @@
                     <b>Ir al trabajo</b>
                     <span>FGC: Sant Josep &rarr; Europa | Fira</span>
                 </a>
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta del trabajo</b>
+                    <span>FGC: Europa | Fira &rarr; Sant Josep</span>
+                </a>
+                <a href="https://maps.app.goo.gl/AhRfHtg9DHJv5CPu5" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta en metro</b>
+                    <span>Google Maps</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. Autobuses Lurraldebus -->
+        <section class="card">
+            <h2>Autobús Lurraldebus (Línea DO050)</h2>
+            <div class="bus-subcard">
+                <div class="bus-header">
+                    <span>Aeropuerto BIO &rarr; San Sebastián</span>
+                    <span style="font-size:0.75rem; color:#94a3b8;">Directo ~75m</span>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Salidas cada hora (a y 45):</div>
+                <div class="bus-list" id="bus-ida">
+                    <div class="bus-item sig">Próx: 07:45 h</div>
+                    <div class="bus-item">08:45 h</div>
+                    <div class="bus-item">09:45 h</div>
+                </div>
+                <a href="https://www.pesa.net/" target="_blank" rel="noopener noreferrer" class="bus-link">Web oficial / billetes &rarr;</a>
+            </div>
+
+            <div class="bus-subcard">
+                <div class="bus-header">
+                    <span>San Sebastián &rarr; Aeropuerto BIO</span>
+                    <span style="font-size:0.75rem; color:#94a3b8;">Directo ~75m</span>
+                </div>
+                <div style="font-size:0.75rem; color:#94a3b8;">Salidas cada hora (en punto):</div>
+                <div class="bus-list" id="bus-vuelta">
+                    <div class="bus-item sig">Próx: 05:00 h</div>
+                    <div class="bus-item">06:00 h</div>
+                    <div class="bus-item">07:00 h</div>
+                </div>
+                <a href="https://www.pesa.net/" target="_blank" rel="noopener noreferrer" class="bus-link">Web oficial / billetes &rarr;</a>
+            </div>
+        </section>
+
+        <!-- 3. Previsión Meteorológica -->
+        <section class="card">
+            <h2>Previsión Aeropuertos</h2>
+            <!-- Bilbao -->
+            <div class="clima-bloque">
+                <div class="clima-tit">Aeropuerto de Bilbao (BIO)</div>
+                <div class="clima-sub">Próximos 4 Días</div>
+                <div class="grid-dias" id="prev-bio">
+                    <div class="clima-item">Hoy<br><b>--°</b></div>
+                    <div class="clima-item">Mañana<br><b>--°</b></div>
+                    <div class="clima-item">Día 3<br><b>--°</b></div>
+                    <div class="clima-item">Día 4<br><b>--°</b></div>
+                </div>
+                <div class="clima-sub">Próximas 6 Horas</div>
+                <div class="grid-horas" id="horas-bio">
+                    <div class="clima-item">+1h</div><div class="clima-item">+2h</div><div class="clima-item">+3h</div>
+                    <div class="clima-item">+4h</div><div class="clima-item">+5h</div><div class="clima-item">+6h</div>
+                </div>
+            </div>
+
+            <!-- Barcelona -->
+            <div class="clima-bloque" style="margin-bottom:0;">
+                <div class="clima-tit">Aeropuerto de Barcelona (BCN)</div>
+                <div class="clima-sub">Próximos 4 Días</div>
+                <div class="grid-dias" id="prev-bcn">
+                    <div class="clima-item">Hoy<br><b>--°</b></div>
+                    <div class="clima-item">Mañana<br><b>--°</b></div>
+                    <div class="clima-item">Día 3<br><b>--°</b></div>
+                    <div class="clima-item">Día 4<br><b>--°</b></div>
+                </div>
+                <div class="clima-sub">Próximas 6 Horas</div>
+                <div class="grid-horas" id="horas-bcn">
+                    <div class="clima-item">+1h</div><div class="clima-item">+2h</div><div class="clima-item">+3h</div>
+                    <div class="clima-item">+4h</div><div class="clima-item">+5h</div><div class="clima-item">+6h</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. Horario Laboral -->
+        <section class="card">
+            <h2>Horario Laboral <span style="font-size:0.8rem; color:#94a3b8; font-weight:normal;">Equipo E11</span></h2>
+            <div class="box">
+                <div style="font-size: 0.75rem; color: #94a3b8;">TURNO DE HOY</div>
+                <div class="shift-badge" id="s-code">L</div>
+                <div style="color: #94a3b8; font-size: 1rem;" id="s-name">Libre / Descanso</div>
+            </div>
+            <div style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 0.4rem;">Próximos días:</div>
+            <ul id="s-list">
+                <li><span>Cargando cuadrante...</span><span class="tag off">...</span></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer style="margin-top:auto; padding-top:2rem; font-size:0.8rem; color:#94a3b8;">
+        Área restringida &middot; Panel de Control
+    </footer>
+
+    <script>
+        // 1. Horarios de autobuses
+        function actBus() {
+            const hIda = ["07:45","08:45","09:45","10:45","11:45","12:45","13:45","14:45","15:45","16:45","17:45","18:45","19:45","20:45","21:45","22:45","23:45"];
+            const hVta = ["05:00","06:00","07:00","08:00","09:00","10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00","21:00","22:00"];
+            const d = new Date();
+            const act = String(d.getHours()).padStart(2, '0') + ':' + String(d.getMinutes()).padStart(2, '0');
+
+            function render(lista, id, primerTxt) {
+                const s = lista.filter(x => x >= act).slice(0, 3);
+                const el = document.getElementById(id);
+                if (el) {
+                    if (s.length) el.innerHTML = s.map((x, i) => `<div class="bus-item ${i === 0 ? 'sig' : ''}">${i === 0 ? 'Próx: ' : ''}${x} h</div>`).join('');
+                    else el.innerHTML = `<span style="font-size:0.75rem; color:#94a3b8;">Finalizado por hoy. Mañana a las ${primerTxt}</span>`;
+                }
+            }
+            render(hIda, 'bus-ida', '07:45 h');
+            render(hVta, 'bus-vuelta', '05:00 h');
+        }
+
+        // 2. Previsión Meteorológica Open-Meteo
+        const WMO = {0:'Desp.', 1:'Nub.', 2:'Nub.', 3:'Cub.', 45:'Niebla', 51:'Llov.', 61:'Lluvia', 80:'Chub.', 95:'Torm.'};
+        const DIAS = ['Dom', 'Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb'];
+
+        async function actClima() {
+            const p = [
+                { d: 'prev-bio', h: 'horas-bio', lat: 43.3011, lon: -2.9106 },
+                { d: 'prev-bcn', h: 'horas-bcn', lat: 41.2974, lon: 2.0833 }
+            ];
+            for (const x of p) {
+                try {
+                    const res = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${x.lat}&longitude=${x.lon}&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_sum&hourly=temperature_2m,weather_code,precipitation&forecast_days=4&timezone=auto`);
+                    if (!res.ok) continue;
+                    const data = await res.json();
+                    
+                    const elD = document.getElementById(x.d);
+                    if (elD && data.daily) {
+                        elD.innerHTML = data.daily.time.map((f, i) => `
+                            <div class="clima-item">
+                                <div style="color:#94a3b8; font-weight:bold;">${i === 0 ? 'Hoy' : DIAS[new Date(f + 'T00:00:00').getDay()]}</div>
+                                <div style="font-size:0.65rem;">${WMO[data.daily.weather_code[i]] || 'Var.'}</div>
+                                <div><b>${Math.round(data.daily.temperature_2m_max[i])}°</b> <span style="color:#94a3b8; font-size:0.65rem;">${Math.round(data.daily.temperature_2m_min[i])}°</span></div>
+                                <div style="color:#38bdf8; font-size:0.65rem;">💧${data.daily.precipitation_sum[i]}m</div>
+                            </div>
+                        `).join('');
+                    }
+
+                    const elH = document.getElementById(x.h);
+                    if (elH && data.hourly) {
+                        const now = new Date();
+                        let idx = data.hourly.time.findIndex(t => new Date(t) >= now);
+                        if (idx === -1) idx = 0;
+                        let str = '';
+                        for (let i = idx; i < idx + 6 && i < data.hourly.time.length; i++) {
+                            str += `
+                                <div class="clima-item">
+                                    <div style="color:#94a3b8; font-weight:bold;">${data.hourly.time[i].substring(11, 16)}</div>
+                                    <div><b>${Math.round(data.hourly.temperature_2m[i])}°</b></div>
+                                    <div style="color:#38bdf8; font-size:0.65rem;">${data.hourly.precipitation[i] > 0 ? data.hourly.precipitation[i] + 'm' : '0m'}</div>
+                                </div>
+                            `;
+                        }
+                        elH.innerHTML = str;
+                    }
+                } catch(e) {}
+            }
+        }
+
+        // 3. Sincronización Google Sheets
+        const URL_CSV = 'https://docs.google.com/spreadsheets/d/1LGStlL5X0kGPmwmVnB1OmcQdWe6uzrYUfzk54t-QZ28/export?format=csv';
+        const TURNOS = {
+            'M':   { nombre: 'Mañana', tipo: 'mañana' },
+            'T':   { nombre: 'Tarde', tipo: 'tarde' },
+            'Nn':  { nombre: 'Noche', tipo: 'noche' },
+            'Nnw': { nombre: 'Noche Fin de Semana', tipo: 'noche-finde' }
+        };
+
+        async function actTurnos() {
+            try {
+                const res = await fetch(URL_CSV);
+                if (!res.ok) return;
+                const txt = await res.text();
+                const rows = txt.trim().split(/\r?\n/).slice(1);
+                
+                const lista = rows.map(r => {
+                    const c = r.split(',').map(x => x.replace(/^"|"$/g, '').trim());
+                    const f = c[0];
+                    if (!f) return null;
+                    const p = f.split('/');
+                    if (p.length !== 3) return null;
+                    const cod = c[2] || '';
+                    const inf = TURNOS[cod] || { nombre: 'Libre', tipo: 'off' };
+                    return {
+                        iso: `${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`,
+                        vis: f,
+                        dia: c[1] || '',
+                        cod: cod || 'L',
+                        nombre: inf.nombre,
+                        tipo: inf.tipo
+                    };
+                }).filter(Boolean);
+
+                const pad = n => (n < 10 ? '0' : '') + n;
+                const hoy = new Date();
+                const hoyISO = hoy.getFullYear() + '-' + pad(hoy.getMonth() + 1) + '-' + pad(hoy.getDate());
+
+                const tHoy = lista.find(t => t.iso === hoyISO);
+                const elCode = document.getElementById('s-code');
+                const elName = document.getElementById('s-name');
+                if (elCode && elName) {
+                    if (tHoy) {
+                        elCode.textContent = tHoy.cod;
+                        elName.textContent = tHoy.nombre;
+                    } else {
+                        elCode.textContent = 'L';
+                        elName.textContent = 'Libre / Sin turno';
+                    }
+                }
+
+                const prox = lista.filter(t => t.iso > hoyISO).slice(0, 4);
+                const elProx = document.getElementById('s-list');
+                if (elProx && prox.length) {
+                    elProx.innerHTML = prox.map(t => {
+                        const etiqueta = t.cod === 'L' ? 'Libre' : `${t.cod} · ${t.nombre}`;
+                        return `<li><span>${t.dia} (${t.vis})</span><span class="tag ${t.tipo}">${etiqueta}</span></li>`;
+                    }).join('');
+                }
+            } catch(e) {}
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            actBus();
+            actClima();
+            actTurnos();
+        });
+    </script>
+</body>
+</html>
