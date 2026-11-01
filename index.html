@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Personal</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 2rem 1rem; display: flex; flex-direction: column; align-items: center; }
+        header { text-align: center; margin-bottom: 2rem; }
+        header h1 { font-size: 2.2rem; color: #38bdf8; }
+        .container { width: 100%; max-width: 800px; display: flex; flex-direction: column; gap: 1.5rem; }
+        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
+        h2 { font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; color: #38bdf8; }
+        .box { background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; padding: 1.2rem; text-align: center; margin-bottom: 1.2rem; }
+        .shift-badge { font-size: 2.5rem; font-weight: 800; color: #38bdf8; margin: 0.2rem 0; }
+        ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; }
+        li { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
+        .tag { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; background: #0284c7; color: #fff; }
+        .tag.off { background: #475569; color: #94a3b8; }
+        .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
+        .link { display: flex; flex-direction: column; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; text-decoration: none; color: #f8fafc; transition: all 0.2s ease; }
+        .link:hover { border-color: #38bdf8; background: rgba(56,189,248,0.08); transform: translateY(-2px); }
+        .link b { font-size: 1rem; }
+        .link span { font-size: 0.75rem; color: #94a3b8; margin-top: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Panel de Control</h1>
+        <p style="color: #94a3b8; font-size: 0.9rem;">Acceso personal</p>
+    </header>
+
+    <div class="container">
+        <!-- 1. Mis Enlaces -->
+        <section class="card">
+            <h2>Mis Enlaces</h2>
+            <div class="links">
+                <!-- 1. Ir al trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Ir al trabajo</b>
+                    <span>FGC: Sant Josep &rarr; Europa | Fira</span>
+                </a>
+
+                <!-- 2. Vuelta del trabajo -->
+                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta del trabajo</b>
+                    <span>FGC: Europa | Fira &rarr; Sant Josep</span>
+                </a>
+
+                <!-- 3. Vuelta en metro (Enlace actualizado de Google Maps) -->
+                <a href="https://maps.app.goo.gl/AhRfHtg9DHJv5CPu5" target="_blank" rel="noopener noreferrer" class="link">
+                    <b>Vuelta en metro</b>
+                    <span>Google Maps</span>
+                </a>
+            </div>
+        </section>
+
+        <!-- 2. Horario Laboral -->
+        <section class="card">
+            <h2>Horario Laboral <span style="font-size:0.8rem; color:#94a3b8; font-weight:normal;">Equipo E11</span></h2>
+            <div class="box" style="border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.05);">
+                <div style="font-size: 0.8rem; color: #94a3b8;">TURNO DE HOY</div>
+                <div class="shift-badge" id="s-code">Nn</div>
+                <div style="color: #94a3b8; font-size: 1.05rem;" id="s-name">Noche</div>
+            </div>
+            <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem;">Próximos días:</div>
+            <ul id="s-list">
+                <li><span>Viernes</span><span class="tag">Nnw · Noche Fin de Semana</span></li>
+                <li><span>Sábado</span><span class="tag">Nnw · Noche Fin de Semana</span></li>
+                <li><span>Domingo</span><span class="tag">Nn · Noche</span></li>
+                <li><span>Lunes</span><span class="tag off">Libre</span></li>
+            </ul>
+        </section>
+    </div>
+
+    <footer style="margin-top:auto; padding-top:2.5rem; font-size:0.8rem; color:#94a3b8;">
+        Área restringida &middot; Panel de Control
+    </footer>
+
+    <!-- Script de turnos (con sincronización opcional si restauras el CSV) -->
+    <script>
+        (function() {
+            var sn = {'M':'Mañana', 'T':'Tarde', 'Nn':'Noche', 'Nnw':'Noche Fin de Semana'};
+            var pad = function(n) { return (n < 10 ? '0' : '') + n; };
+            var dt = function(d) { return pad(d.getDate()) + '/' + pad(d.getMonth() + 1) + '/' + d.getFullYear(); };
+
+            fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vTYY-tJffbmNT8PC00CMisGJ8W0S4XSb6U0MnjD5BQbNkQE72ZhsxJwfnAObXWkaOLK2j6epc7Efy0D/pub?output=csv&_t=' + Date.now())
+                .then(function(r) { return r.text(); })
+                .then(function(csv) {
+                    var lines = csv.trim().split(/\r?\n/);
+                    if (lines.length < 2) return;
+                    var delim = lines[0].indexOf(';') > -1 ? ';' : ',';
+                    var m = {};
+                    for (var i = 1; i < lines.length; i++) {
+                        var c = lines[i].split(delim);
+                        if (c.length >= 3) m[c[0].replace(/["']/g, '').trim()] = c[2].replace(/["']/g, '').trim();
+                    }
+                    var today = dt(new Date());
+                    if (m[today] !== undefined) {
+                        var code = m[today];
+                        var codeEl = document.getElementById('s-code');
+                        var nameEl = document
