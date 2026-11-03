@@ -1,158 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Panel Hospitalet</title>
-    <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
-        body { background: #0f172a; color: #f8fafc; min-height: 100vh; padding: 1.5rem 1rem; display: flex; flex-direction: column; align-items: center; }
-        header { text-align: center; margin-bottom: 1.5rem; }
-        header h1 { font-size: 2rem; color: #38bdf8; }
-        .container { width: 100%; max-width: 750px; display: flex; flex-direction: column; gap: 1.5rem; }
-        .card { background: #1e293b; border: 1px solid #334155; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3); }
-        h2 { font-size: 1.2rem; margin-bottom: 1rem; border-bottom: 1px solid #334155; padding-bottom: 0.5rem; color: #38bdf8; }
-        
-        /* Enlaces */
-        .links { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; }
-        .link { display: flex; flex-direction: column; padding: 1rem; background: rgba(255,255,255,0.03); border: 1px solid #334155; border-radius: 8px; text-decoration: none; color: #f8fafc; transition: all 0.2s ease; }
-        .link:hover { border-color: #38bdf8; background: rgba(56,189,248,0.08); transform: translateY(-2px); }
-        .link b { font-size: 1rem; }
-        .link span { font-size: 0.75rem; color: #94a3b8; margin-top: 0.3rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-
-        /* Horario Laboral */
-        .box { background: rgba(56,189,248,0.05); border: 1px solid rgba(56,189,248,0.3); border-radius: 8px; padding: 1.2rem; text-align: center; margin-bottom: 1.2rem; }
-        .shift-badge { font-size: 2.5rem; font-weight: 800; color: #38bdf8; margin: 0.2rem 0; }
-        ul { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.95rem; }
-        li { display: flex; justify-content: space-between; align-items: center; padding: 0.6rem 0.8rem; background: rgba(255,255,255,0.02); border-radius: 6px; }
-        .tag { font-weight: 600; padding: 0.2rem 0.6rem; border-radius: 4px; font-size: 0.8rem; }
-        .tag.mañana { background: #0284c7; color: #fff; }
-        .tag.tarde { background: #d97706; color: #fff; }
-        .tag.noche { background: #7c3aed; color: #fff; }
-        .tag.noche-finde { background: #4c1d95; color: #e9d5ff; border: 1px solid #a855f7; }
-        .tag.off { background: #475569; color: #94a3b8; }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transporte FGC</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, sans-serif; }
+  body {
+    background: #0f172a;
+    color: #f8fafc;
+    min-height: 100vh;
+    padding: 24px 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .box { width: 100%; max-width: 480px; }
+  h1 { font-size: 1.4rem; text-align: center; color: #38bdf8; margin-bottom: 24px; }
+  .btn {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #1e293b;
+    color: #f8fafc;
+    text-decoration: none;
+    padding: 16px;
+    border-radius: 8px;
+    border: 1px solid #334155;
+    margin-bottom: 12px;
+    transition: all 0.2s ease;
+  }
+  .btn:hover {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.08);
+  }
+  .btn-text { display: flex; flex-direction: column; gap: 4px; }
+  .btn-title { font-size: 1rem; font-weight: bold; }
+  .btn-desc { font-size: 0.8rem; color: #94a3b8; }
+  .tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    padding: 4px 8px;
+    border-radius: 4px;
+    white-space: nowrap;
+  }
+</style>
 </head>
 <body>
 
-    <header>
-        <h1>Panel Hospitalet</h1>
-        <p style="color: #94a3b8; font-size: 0.9rem;">Acceso personal</p>
-    </header>
+<div class="box">
+  <h1>Mis Enlaces FGC</h1>
 
-    <div class="container">
-        <!-- 1. Mis Enlaces -->
-        <section class="card">
-            <h2>Mis Enlaces</h2>
-            <div class="links">
-                <a href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Europa+%7C+Fira&amp;to_code=EU" target="_blank" rel="noopener noreferrer" class="link">
-                    <b>Ir al trabajo</b>
-                    <span>FGC: Sant Josep &rarr; Europa | Fira</span>
-                </a>
-
-                <a href="https://www.fgc.cat/es/buscador/?from_address=Europa+%7C+Fira&amp;from_lat=41.356558916&amp;from_lng=2.124199344&amp;from_code=EU&amp;to_address=Sant+Josep&amp;to_lat=41.360700975&amp;to_lng=2.10991665&amp;to_code=SP&amp;datetime_option=0&amp;range_option=0&amp;date=29-10-2026&amp;time_from=10%3A48" target="_blank" rel="noopener noreferrer" class="link">
-                    <b>Vuelta del trabajo</b>
-                    <span>FGC: Europa | Fira &rarr; Sant Josep</span>
-                </a>
-
-                <a href="https://maps.app.goo.gl/AhRfHtg9DHJv5CPu5" target="_blank" rel="noopener noreferrer" class="link">
-                    <b>Vuelta en metro</b>
-                    <span>Google Maps</span>
-                </a>
-            </div>
-        </section>
-
-        <!-- 2. Horario Laboral -->
-        <section class="card">
-            <h2>Horario Laboral <span style="font-size:0.8rem; color:#94a3b8; font-weight:normal;">Equipo E11</span></h2>
-            <div class="box">
-                <div style="font-size: 0.8rem; color: #94a3b8;">TURNO DE HOY</div>
-                <div class="shift-badge" id="s-code">L</div>
-                <div style="color: #94a3b8; font-size: 1.05rem;" id="s-name">Libre / Descanso</div>
-            </div>
-            <div style="font-size: 0.85rem; color: #94a3b8; margin-bottom: 0.5rem;">Próximos días:</div>
-            <ul id="s-list">
-                <li><span>Cargando cuadrante...</span><span class="tag off">...</span></li>
-            </ul>
-        </section>
+  <!-- 1. Ir al trabajo -->
+  <a class="btn" href="https://www.fgc.cat/es/buscador/?from_address=Sant+Josep&amp;from_code=SP&amp;to_address=Pl.+Espanya&amp;to_code=PE" target="_blank" rel="noopener noreferrer">
+    <div class="btn-text">
+      <span class="btn-title">Ir al trabajo</span>
+      <span class="btn-desc">Sant Josep &rarr; Pl. Espanya</span>
     </div>
+    <span class="tag">FGC Ida</span>
+  </a>
 
-    <footer style="margin-top:auto; padding-top:2.5rem; font-size:0.8rem; color:#94a3b8;">
-        Área restringida &middot; Panel de Control
-    </footer>
+  <!-- 2. Volver del trabajo -->
+  <a class="btn" href="https://www.fgc.cat/es/buscador/?from_address=Pl.+Espanya&amp;from_code=PE&amp;to_address=Sant+Josep&amp;to_code=SP" target="_blank" rel="noopener noreferrer">
+    <div class="btn-text">
+      <span class="btn-title">Volver del trabajo</span>
+      <span class="btn-desc">Pl. Espanya &rarr; Sant Josep</span>
+    </div>
+    <span class="tag">FGC Vuelta</span>
+  </a>
+</div>
 
-    <!-- Sincronización con Google Sheets -->
-    <script>
-        (function() {
-            const urlCSV = 'https://docs.google.com/spreadsheets/d/1LGStlL5X0kGPmwmVnB1OmcQdWe6uzrYUfzk54t-QZ28/export?format=csv';
-
-            const turnosInfo = {
-                'M':   { nombre: 'Mañana', tipo: 'mañana' },
-                'T':   { nombre: 'Tarde', tipo: 'tarde' },
-                'Nn':  { nombre: 'Noche', tipo: 'noche' },
-                'Nnw': { nombre: 'Noche Fin de Semana', tipo: 'noche-finde' }
-            };
-
-            fetch(urlCSV)
-                .then(res => {
-                    if (!res.ok) throw new Error('Error al descargar');
-                    return res.text();
-                })
-                .then(csv => {
-                    const lines = csv.trim().split(/\r?\n/).slice(1);
-                    const lista = lines.map(line => {
-                        const cols = line.split(',').map(c => c.replace(/^"|"$/g, '').trim());
-                        const fRaw = cols[0];
-                        if (!fRaw) return null;
-                        const p = fRaw.split('/');
-                        if (p.length !== 3) return null;
-
-                        const cod = cols[2] || '';
-                        const info = turnosInfo[cod] || { nombre: 'Libre', tipo: 'off' };
-
-                        return {
-                            iso: `${p[2]}-${p[1].padStart(2, '0')}-${p[0].padStart(2, '0')}`,
-                            fechaVisual: fRaw,
-                            dia: cols[1] || '',
-                            cod: cod || 'L',
-                            nombre: info.nombre,
-                            tipo: info.tipo
-                        };
-                    }).filter(Boolean);
-
-                    const pad = n => (n < 10 ? '0' : '') + n;
-                    const hoy = new Date();
-                    const hoyISO = `${hoy.getFullYear()}-${pad(hoy.getMonth() + 1)}-${pad(hoy.getDate())}`;
-
-                    // Turno de hoy
-                    const tHoy = lista.find(t => t.iso === hoyISO);
-                    const elCode = document.getElementById('s-code');
-                    const elName = document.getElementById('s-name');
-
-                    if (elCode && elName) {
-                        if (tHoy) {
-                            elCode.textContent = tHoy.cod;
-                            elName.textContent = tHoy.nombre;
-                        } else {
-                            elCode.textContent = 'L';
-                            elName.textContent = 'Libre / Sin turno';
-                        }
-                    }
-
-                    // Próximos 4 días
-                    const proximos = lista.filter(t => t.iso > hoyISO).slice(0, 4);
-                    const elList = document.getElementById('s-list');
-                    if (elList && proximos.length) {
-                        elList.innerHTML = proximos.map(t => {
-                            const etiqueta = t.cod === 'L' ? 'Libre' : `${t.cod} · ${t.nombre}`;
-                            return `<li><span>${t.dia} (${t.fechaVisual})</span><span class="tag ${t.tipo}">${etiqueta}</span></li>`;
-                        }).join('');
-                    }
-                })
-                .catch(() => {
-                    document.getElementById('s-name').textContent = 'Error al sincronizar';
-                });
-        })();
-    </script>
 </body>
 </html>
